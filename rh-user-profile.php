@@ -8,6 +8,16 @@ Author: William Wright
 Author URI: http://rhodian.net
 License: GPL2
 */
+//create a admin area menu item
+function rh_user_profile_menu() {
+  //add_menu_page( string $page_title, string $menu_title, string $capability, string $menu_slug, callable $callback = '', string $icon_url = '', int|float $position = null ): string
+  add_menu_page( 'Rhodian User Profile', 'Rhodian User Profile', 'manage_options', 'rh-user-profile', 'rh_user_profile_admin', 'dashicons-admin-users', 2 );
+}
+add_action( 'admin_menu', 'rh_user_profile_menu' );
+//create the admin area options page
+function rh_user_profile_admin(){
+  require_once( plugin_dir_path( __FILE__ ) . 'rh-user-profile-admin.php' );
+}
 //simple link options for login and logout links in elementor widget
 function rh_user_profile_elementor_widget_init() {
   //check if elementor is active and if not, deactivate plugin
@@ -16,6 +26,11 @@ function rh_user_profile_elementor_widget_init() {
   }
 }
 add_action( 'elementor/widgets/widgets_registered', 'rh_user_profile_elementor_widget_init' );
-
+//generate a logout link
+function rh_user_profile_logout_link() {
+  $logout_url = wp_logout_url( home_url() );
+  $logout_link = '<a href="' . $logout_url . '">' . __( 'Logout', 'rh-user-profile' ) . '</a>';
+  return $logout_link;
+}
 
 require_once( plugin_dir_path( __FILE__ ) . 'enqueue-scripts.php' );
