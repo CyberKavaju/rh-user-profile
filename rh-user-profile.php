@@ -32,5 +32,17 @@ function rh_user_profile_logout_link() {
   $logout_link = '<a href="' . $logout_url . '">' . __( 'Logout', 'rh-user-profile' ) . '</a>';
   return $logout_link;
 }
-
+//Enqueue scripts
 require_once( plugin_dir_path( __FILE__ ) . 'enqueue-scripts.php' );
+//Reditect users to login page if they are not logged in
+function admin_redirect() {
+if ( !is_user_logged_in()) {
+  //check if the current page is the login page
+  if( !is_page('membership-login') ) {
+    //if not, redirect to the login page
+    wp_redirect( home_url('/membership-login/') );
+    exit;
+  }
+}
+}
+add_action('get_header', 'admin_redirect');
