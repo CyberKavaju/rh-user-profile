@@ -25,6 +25,18 @@ function rh_user_profile_elementor_widget_init() {
     require_once( plugin_dir_path( __FILE__ ) . 'rh-user-profile-elementor-widget.php' );
   }
 }
+//make a simple shortcode button
+// the short code will be [rh-user-profile]
+function rh_user_profile_shortcode() {
+  if ( is_user_logged_in() ) {
+    $output = '<a href="' . wp_logout_url(home_url()) . '" class="btn btn-success">Salir</a>';
+  } else {
+    $output = '<a href="' . wp_login_url() . '" class="btn btn-success">Ingresar</a>';
+  }
+  return $output;
+}
+add_shortcode( 'rh-user-profile', 'rh_user_profile_shortcode' );
+
 add_action( 'elementor/widgets/widgets_registered', 'rh_user_profile_elementor_widget_init' );
 //generate a logout link
 function rh_user_profile_logout_link() {

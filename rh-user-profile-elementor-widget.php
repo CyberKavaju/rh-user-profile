@@ -51,70 +51,29 @@ class Rh_User_Profile_Elementor_Widget extends \Elementor\Widget_Base {
         'default' => __( 'http://example.com/logout', 'rh-user-profile' ),
       ]
     );
-    //buton style and size color controls
-    $this->end_controls_section();
-     $this->start_controls_section(
-          'content_section',
-          [
-            'label' => __('Button Style', 'rh-user-profile'),
-            'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-          ]
-        );
-    $this->add_control(
-      'button_style',
-      [
-        'label' => __( 'Button Style', 'rh-user-profile' ),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'default' => 'primary',
-        'options' => [
-          'primary' => __( 'Primary', 'rh-user-profile' ),
-          'secondary' => __( 'Secondary', 'rh-user-profile' ),
-          'success' => __( 'Success', 'rh-user-profile' ),
-          'danger' => __( 'Danger', 'rh-user-profile' ),
-          'warning' => __( 'Warning', 'rh-user-profile' ),
-          'info' => __( 'Info', 'rh-user-profile' ),
-          'light' => __( 'Light', 'rh-user-profile' ),
-          'dark' => __( 'Dark', 'rh-user-profile' ),
-          'link' => __( 'Link', 'rh-user-profile' ),
-        ],
-      ]
-    );
-    $this->add_control(
-      'button_size',
-      [
-        'label' => __( 'Button Size', 'rh-user-profile' ),
-        'type' => \Elementor\Controls_Manager::SELECT,
-        'default' => 'md',
-        'options' => [
-          'xs' => __( 'Extra Small', 'rh-user-profile' ),
-          'sm' => __( 'Small', 'rh-user-profile' ),
-          'md' => __( 'Medium', 'rh-user-profile' ),
-          'lg' => __( 'Large', 'rh-user-profile' ),
-          'xl' => __( 'Extra Large', 'rh-user-profile' ),
-        ],
-      ]
-    );
-    $this->add_control(
-      'button_color',
-      [
-        'label' => __( 'Button Color', 'rh-user-profile' ),
-        'type' => \Elementor\Controls_Manager::COLOR,
-        'default' => '#ffffff',
-      ]
-    );
-
-    $this->end_controls_section();
-
   }
   protected function render() {
     $settings = $this->get_settings_for_display();
     if ( is_user_logged_in() ) {
       //generate button with settings
-      echo '<a href="' . $settings['logout_url'] . '" class="btn btn-' . $settings['button_style'] . ' btn-' . $settings['button_size'] . '" style="color:' . $settings['button_color'] . '">' . $settings['logout_text'] . '</a>';
+      echo '<a href="' . $settings['logout_url'] . '" class="btn btn-primary">' . $settings['logout_text'] . '</a>';
+     /* echo '
+      <div class="user-navbar-nav" id="userDropdown">
+        <ul>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . wp_get_current_user()->display_name . '</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="' . $settings['logout_url'] . '">' . $settings['logout_text'] . '</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      ';*/
     } else {
       //generate button with settings
-      echo '<a href="' . $settings['login_url'] . '" class="btn btn-' . $settings['button_style'] . ' btn-' . $settings['button_size'] . '" style="color:' . $settings['button_color'] . '">' . $settings['login_text'] . '</a>';
+      echo '<a href="' . $settings['login_url'] . '" class="btn btn-primary">' . $settings['login_text'] . '</a>';
     }
   }
 }
 \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Rh_User_Profile_Elementor_Widget() );
+

@@ -10,3 +10,8 @@ function rh_user_profile_enqueue_custom_css() {
   wp_enqueue_style( 'rh-user-profile', plugin_dir_url( __FILE__ ) . 'css/rh-user-profile.css' );
 }
 add_action( 'wp_enqueue_scripts', 'rh_user_profile_enqueue_custom_css' );
+//enqueue custom js
+function rh_user_profile_enqueue_custom_js() {
+  wp_enqueue_script( 'rh-user-profile', plugin_dir_url( __FILE__ ) . 'js/rh-user-profile.js', array('jquery'), '1.0.0', true );
+}
+add_action( 'wp_enqueue_scripts', 'rh_user_profile_enqueue_custom_js' );
